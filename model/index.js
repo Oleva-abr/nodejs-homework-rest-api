@@ -3,7 +3,6 @@ const fs = require('fs/promises');
 const path = require('path');
 const contactsPath = path.join(__dirname, '/contacts.json');
 const { v4: uuidv4 } = require('uuid');
-console.log(contactsPath);
 
 const listContacts = async () => {
   try {

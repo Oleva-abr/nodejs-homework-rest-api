@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Contacts = require('../../model/index');
 
-router.get('/', async (req, res, next) => {
+router.get('/', async (_req, res, next) => {
   try {
     const contacts = await Contacts.listContacts();
     res.json({
@@ -19,7 +19,7 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:contactId', async (req, res, next) => {
   try {
-    const contact = await Contacts.getContactById(req.params);
+    const contact = await Contacts.getContactById(req.params.contactId);
     if (contact) {
       res.json({
         status: 'success',

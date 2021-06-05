@@ -14,11 +14,11 @@ app.use(express.json());
 
 app.use('/api/contacts', contactsRouter);
 
-app.use((req, res) => {
+app.use((_req, res) => {
   res.status(404).json({ status: 'error', code: 404, message: 'Not found' });
 });
 
-app.use((err, req, res, next) => {
+app.use((err, _req, res, _next) => {
   const status = err.status || 500;
   res.status(status).json({
     status: err.status ? 'error' : 'fail',

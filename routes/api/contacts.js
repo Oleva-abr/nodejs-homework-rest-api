@@ -1,6 +1,6 @@
 const express = require("express");
-const router = express.Router();
 
+const validation = require("./validation");
 const {
   getAllContacts,
   getContactById,
@@ -9,13 +9,16 @@ const {
   patchContact,
 } = require("../../controller/index");
 
-const validate = require("./validation");
+const router = express.Router();
 
-router.get("/", getAllContacts).post("/", validate.createContact, createContact);
+router.get("/", getAllContacts);
 
-router
-  .get("/:contactId", getContactById)
-  .delete("/:contactId", deleteContact)
-  .patch("/:contactId", validate.updateContact, patchContact);
+router.get("/:contactId", getContactById);
+
+router.post("/", validation.createContact, createContact);
+
+router.delete("/:contactId", deleteContact);
+
+router.put("/:contactId", validation.updateContact, patchContact);
 
 module.exports = router;

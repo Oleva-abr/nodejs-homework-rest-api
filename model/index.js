@@ -16,7 +16,7 @@ const listContacts = async () => {
 const getContactById = async (contactId) => {
   try {
     const contacts = await listContacts();
-    const contact = contacts.find(({ _id }) => _id.toString() === contactId) || `Contact ID${contactId} not found`;
+    const contact = contacts.find(({ id }) => id.toString() === contactId) || `Contact ID${contactId} not found`;
     return contact;
   } catch (error) {
     throw error;
@@ -30,7 +30,7 @@ const removeContact = async (contactId) => {
 
     const contacts = await listContacts();
     const filteredContacts = contacts.filter((contact) => {
-      return contact._id !== contactId;
+      return contact.id !== contactId;
     });
     await fs.writeFile(contactsPath, JSON.stringify(filteredContacts, null));
     return deletedContact;
@@ -42,7 +42,7 @@ const removeContact = async (contactId) => {
 const addContact = async (body) => {
   try {
     const contacts = await listContacts();
-    const newContact = { _id: uuidv4(), ...body };
+    const newContact = { id: uuidv4(), ...body };
     const contactsArray = [...contacts, newContact];
 
     await fs.writeFile(contactsPath, JSON.stringify(contactsArray, null));
@@ -55,7 +55,7 @@ const addContact = async (body) => {
 const updateContact = async (contactId, body) => {
   try {
     const contacts = await listContacts();
-    const index = contacts.findIndex(({ _id }) => _id.toString() === contactId);
+    const index = contacts.findIndex(({ id }) => id.toString() === contactId);
     if (index === -1) return;
     contacts[index] = { ...contacts[index], ...body };
     await fs.writeFile(contactsPath, JSON.stringify(contacts, null));

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+require("dotenv").config();
 const DBhost = process.env.DB_HOST;
 const db = mongoose
   .connect(DBhost, {

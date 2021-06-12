@@ -1,14 +1,15 @@
 const mongoose = require("mongoose");
 
-require("dotenv").config();
+const dotenv = require("dotenv");
+dotenv.config();
 
-const DBhost = process.env.DB_HOST;
+const { DB_HOST } = process.env;
 
 const db = mongoose.connect(DBhost, {
   useNewUrlParser: true,
-  useUnifiedTopology: true,
   useCreateIndex: true,
-  poolSize: 5,
+  useUnifiedTopology: true,
+  useFindAndModify: false,
 });
 mongoose.connection.on("connected", () => {
   console.log("Mongoose connection to db");

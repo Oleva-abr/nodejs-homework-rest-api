@@ -5,7 +5,7 @@ dotenv.config();
 
 const { DB_HOST } = process.env;
 
-const db = mongoose.connect(DBhost, {
+const db = mongoose.connect(DB_HOST, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true,

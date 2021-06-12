@@ -1,6 +1,5 @@
 const Contacts = require("../model/index");
 
-
 const getAllContacts = async (_req, res, next) => {
   try {
     const contacts = await Contacts.listContacts();

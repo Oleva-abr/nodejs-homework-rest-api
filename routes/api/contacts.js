@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+
 const {
   getAllContacts,
   getContactById,
@@ -7,6 +8,7 @@ const {
   deleteContact,
   patchContact,
 } = require("../../controller/index");
+
 const validate = require("./validation");
 
 router.get("/", getAllContacts).post("/", validate.createContact, createContact);

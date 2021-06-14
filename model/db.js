@@ -1,11 +1,10 @@
 const mongoose = require("mongoose");
 
-const dotenv = require("dotenv");
-dotenv.config();
+require("dotenv").config();
 
-const { DB_HOST } = process.env;
+const dbHost = process.env.DB_HOST;
 
-const db = mongoose.connect(DB_HOST, {
+const db = mongoose.connect(dbHost, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true,

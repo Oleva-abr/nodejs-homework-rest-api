@@ -79,10 +79,50 @@ const getCurrentUser = async (req, res, next) => {
     next(e);
   }
 };
+const avatars = async (req, res, next) => {
+  try {
+    const id = req.user.id;
+    const { public_id: imgIdCloud, secure_url: avatarUrl } =
+      await saveAvatarToCloud(req);
+    await Users.updateAvatar(id, avatarUrl, imgIdCloud);
+    return res.json({
+      status: 'success',
+      code: HttpCode.OK,
+      data: {
+        avatarUrl,
+      },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const saveAvatarToCloud = async req => {
+  const pathFile = req.file.path;
+  const result = await uploadCloud(pathFile, {
+    folder: 'Photo',
+    transformation: {
+      width: 250,
+      height: 250,
+      crop: 'fill',
+    },
+  });
+  cloudinary.uploader.destroy(req.user.imgIdCloud, (err, result) => {
+    console.log(err, result);
+  });
+
+  try {
+    await fs.unlink(path.file);
+  } catch (e) {
+    console.log(e.message);
+  }
+  return result;
+};
 
 module.exports = {
   reg,
   login,
   logout,
   getCurrentUser,
+  avatars,
 };

@@ -4,12 +4,12 @@ const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const { HttpCode } = require('./helpers/contacts');
-
+// const AVATAR_OF_USERS = process.env.AVATAR_OF_USERS;
 const contactsRouter = require('./routes/api/contacts');
 const usersRouter = require('./routes/api/users');
-
+const path = require('path');
 const app = express();
-
+require('dotenv').config();
 const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short';
 
 app.use(helmet());
@@ -30,6 +30,7 @@ const apiLimiter = rateLimit({
   },
 });
 
+app.use(express.static(path.join(__dirname, 'users')));
 app.use('/api/', apiLimiter);
 
 app.use('/api/users', usersRouter);

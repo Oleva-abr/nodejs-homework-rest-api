@@ -17,6 +17,9 @@ const updateToken = async (id, token) => {
 const findByToken = async token => {
   return await User.findOne({ token });
 };
+const updateAvatar = async (id, avatar, imgIdCloud) => {
+  return await User.updateOne({ _id: id }, { avatar, imgIdCloud });
+};
 
 module.exports = {
   findByEmail,
@@ -24,4 +27,5 @@ module.exports = {
   create,
   updateToken,
   findByToken,
+  updateAvatar,
 };

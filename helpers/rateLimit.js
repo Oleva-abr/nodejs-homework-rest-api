@@ -4,7 +4,7 @@ const { HttpCode } = require('./contacts');
 const accountLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 hour
   max: 5,
-  handler: (req, res, next) => {
+  handler: (_req, res, next) => {
     return res.status(HttpCode.BAD_REQUEST).json({
       status: 'error',
       code: HttpCode.BAD_REQUEST,
